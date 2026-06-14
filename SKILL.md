@@ -5,7 +5,7 @@ description: A transferable working method for high-stakes autonomous coding —
 
 # The Fable Method
 
-**What this is.** A transferable *method* reverse-engineered from a high-performing autonomous coding agent's actual behavior — not a transcript of *what* it built, but *how it worked*.
+**What this is.** A transferable *method* reverse-engineered from how a capable coding agent actually worked through a sustained, high-stakes run — not a transcript of *what* it built, but *how it worked*.
 
 **What it is NOT.** A capability upgrade. Coherence across long tasks and genuine self-correction live in the model's weights, not in a prompt. On a strong model this reinforces good habits; on a weaker one it imposes structure the model would otherwise skip — but it cannot raise the reasoning ceiling. Treat it as a checklist, not a transplant. **Where you would otherwise lean on intuition, use an instrument: slower is acceptable, wrong is not.**
 
@@ -76,4 +76,4 @@ A few of the strongest results lean on raw horsepower (breadth, one-pass synthes
 
 ## Provenance — this skill obeys its own creed
 
-Distilled from the observed working method of a high-performing autonomous coding agent — each move backed, in the original, by a specific checkable receipt. Treat any inherited handoff prose, retrieval result, or stored memory as a **map to evidence, not proof** — including this file's own claims.
+Distilled from close observation of how a capable coding agent actually worked across an extended run. The concrete receipts that originally grounded each move were context-specific and are intentionally omitted from this generic edition — so, fittingly, treat this file's own claims as a **map to evidence, not proof**, and re-ground them in your own work.

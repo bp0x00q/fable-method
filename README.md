@@ -6,14 +6,16 @@ A transferable working method for **high-stakes autonomous coding** — reverse-
 
 The full method lives in **[`SKILL.md`](./SKILL.md)**: the one move (a check that can fail), the loop (diagnose → slice → verify → critique), the principles, and when *not* to use it.
 
-## Use it as a Claude Code skill
+## Use it
+
+`SKILL.md` is a self-contained method doc — read it, paste it into a system prompt, or load it as a skill for whatever coding agent you use. Its frontmatter follows the common skill convention, so skills-based agents can register it as-is. In an agent that loads skills from a directory, for example:
 
 ```bash
-mkdir -p ~/.claude/skills/fable-method
-cp SKILL.md ~/.claude/skills/fable-method/SKILL.md
+mkdir -p <your-agent-skills-dir>/fable-method
+cp SKILL.md <your-agent-skills-dir>/fable-method/SKILL.md
 ```
 
-Then invoke `/fable-method` before high-stakes autonomous work (or reference `SKILL.md` however your agent loads skills). It is a checklist, not a transplant — on a strong model it reinforces good habits; it cannot raise the reasoning ceiling.
+It is a checklist, not a transplant — on a strong model it reinforces good habits; it cannot raise the reasoning ceiling.
 
 ## License
 
