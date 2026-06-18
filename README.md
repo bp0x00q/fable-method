@@ -1,36 +1,47 @@
-# The Fable Method
+# Fable Method — verified-learning edition
 
-A working method for **consequential coding tasks** — where a plausible-but-wrong result is costly: large refactors, debugging a failure whose obvious cause is a red herring, building extraction/parsing logic, shipping automation that mutates real state. Reverse-engineered from how a capable coding agent actually worked — *how* it worked, not a transcript of *what* it built.
+A working method for **consequential coding**, where a plausible-but-wrong result is costly: ambiguous debugging, behavior-preserving refactors, extraction pipelines, mutating automation, concurrency, external dependencies, or multi-step work that's hard to verify by inspection.
 
-> **The creed.** No claim without a receipt. No policy value left to a silent default. No source, model, or self-report trusted without a gate. Reach for the eraser before the pen; install the meter before the engine.
+> **Core rule.** No consequential claim without a receipt — a test, diff, log, runtime result, filesystem fact, git history, or source actually read. Where intuition would carry the decision, install an instrument.
+
+Fable is an **execution method first**:
+
+```text
+contract → diagnose → slice → verify → critique
+```
+
+A verified, non-obvious, reusable discovery may then enter an **optional, gated** retention path — never every-prompt extraction, never a direct write into a live skill library:
+
+```text
+proof-table receipt → search/dedupe → staged candidate
+→ positive/negative/boundary evaluation → promotion → revalidation or retirement
+```
+
+This keeps the useful continuous-learning features — selective extraction, trigger-focused descriptions, update-vs-create decisions, project/user scope, versioning, cross-links, deprecation, and archival — while rejecting every-prompt extraction pressure and direct session-to-live-memory writes.
 
 ## Structure
 
-- **[`SKILL.md`](./SKILL.md)** — the spine: the creed, the one move (a check that can fail), the loop (diagnose → slice → verify → critique), the always-on principles, and when *not* to use it. Read this every run.
-- **[`references/`](./references)** — six task-specific plays, each with a worked receipt. Load only the one matching your task:
-  - [`debugging.md`](./references/debugging.md) — prove the mechanism; don't scapegoat the newest change
-  - [`refactor.md`](./references/refactor.md) — golden baseline first, then subtract
-  - [`extraction.md`](./references/extraction.md) — typed honest-zero + abstain + strict validator
-  - [`automation.md`](./references/automation.md) — shadow-first, reversible, exempt human content
-  - [`research.md`](./references/research.md) — verify entities; independent sources where appropriate; kill weak ideas
-  - [`concurrency.md`](./references/concurrency.md) — reproduce under contention; assert an invariant
-- **[`assets/`](./assets)** — runnable templates: [`proof_table.md`](./assets/proof_table.md) (the claim/evidence/status table to build before reporting) and [`status_enum.py`](./assets/status_enum.py) (an honest-zero extraction scaffold).
+- **[`SKILL.md`](./SKILL.md)** — the spine: the core rule, the loop, the play table, and the always-on invariants. Read it every run.
+- **[`references/`](./references)** — load only what the task needs:
+  - **execution plays** — [`debugging`](./references/debugging.md), [`refactor`](./references/refactor.md), [`extraction`](./references/extraction.md), [`automation`](./references/automation.md), [`research`](./references/research.md), [`concurrency`](./references/concurrency.md)
+  - [`learning.md`](./references/learning.md) — the gated retention lifecycle
+  - [`receipts.md`](./references/receipts.md) — the plays' reproduced worked examples
+- **[`assets/`](./assets)** — runnable templates: [`proof_table.md`](./assets/proof_table.md), [`status_enum.py`](./assets/status_enum.py), [`skill_candidate_template.md`](./assets/skill_candidate_template.md).
+- **[`BUILD_RECEIPT.md`](./BUILD_RECEIPT.md)** — this bundle's own proof table; **[`CHANGELOG.md`](./CHANGELOG.md)** — edition history.
 
-Progressive disclosure by design: read the spine, then pull only the one play your task needs into context.
+## Proven vs. candidate
 
-## Honesty about its own receipts
-
-Obeying its own creed: the **debugging, refactor, and extraction** plays each carry a worked example **reproduced under real git/logs/disk**; **automation** (shadow-first / exempt-human / reversible) was reproduced under real filesystem state, **research** entity-resolution under real package-registry queries, and **concurrency** under real threads with an invariant stress harness. What remains untested is lower-stakes residue — the automation play's POLICY-throw and telemetry-on-limit claims, plus the research play's independent-source and adversarial-self-pass claims — **treat those as map, not proof** until you ground them in your own work.
+Obeying its own creed: the execution plays carry receipts reproduced under real git, logs, disk, and threads (see `BUILD_RECEIPT.md`). The **learning lifecycle is a candidate method** — its one empirical claim, that retained skills improve future-agent performance, is **unverified** until benchmarked in your target environment. Keep candidates staged until they pass a clean with/without-skill evaluation.
 
 ## Use it
 
-`SKILL.md` follows the common skill convention (`name` + `description` frontmatter), so skills-based agents can register it as-is. Copy the whole directory so the plays and assets resolve:
+`SKILL.md` uses the standard `name` + `description` frontmatter, so skills-based agents can register it. Copy the directory so the plays and assets resolve:
 
 ```bash
 cp -r fable-method <your-agent-skills-dir>/
 ```
 
-Or just read `SKILL.md` and pull plays as needed. It's a checklist, not a transplant — on a strong model it reinforces good habits; it cannot raise the reasoning ceiling.
+Or read `SKILL.md` and pull plays as needed. It's a checklist, not a transplant — on a strong model it reinforces good habits; it cannot raise the reasoning ceiling.
 
 ## License
 

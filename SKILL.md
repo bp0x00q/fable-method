@@ -1,75 +1,73 @@
 ---
 name: fable-method
 description: >-
-  A working method for consequential coding tasks where a plausible-but-wrong
-  result is costly: large refactors, debugging failures whose obvious cause may
-  be a red herring, data pipelines or extraction logic, automation that mutates
-  real state, concurrency/shared-state bugs, and multi-step work whose output is
-  hard to eyeball for correctness. Diagnose before building, ship the smallest
-  verified slice, and make no consequential "done" or "this is the cause" claim
-  without a check that could fail: a test that runs, logs/git history/on-disk
-  state actually read, or an external entity actually resolved. Skip it for
-  trivial single-pass edits with one obvious correct answer.
+  Use for consequential coding work where a plausible-but-wrong result is costly:
+  ambiguous debugging, behavior-preserving refactors, extraction pipelines,
+  mutating automation, concurrency, external dependencies, or multi-step work
+  that is hard to verify by inspection. Diagnose before building, ship the
+  smallest verified slice, and support every consequential conclusion with a
+  check that could fail. After a verified non-obvious discovery, optionally
+  stage and evaluate it as reusable skill knowledge. Skip trivial one-pass edits.
 ---
 
 # The Fable Method
 
-A working method for consequential coding tasks: diagnose before you build, ship the smallest verified slice, and make no consequential claim without a check that can fail.
+A compact operating method for consequential coding: **contract → diagnose → slice → verify → critique → retain only what earned persistence**.
 
-> **The creed.** No consequential claim without a receipt. No policy value left to a silent default. No source, model, package, or self-report trusted without a gate. Reach for the eraser before the pen; install the meter before the engine.
+## Core rule
 
-## The one move under all of it: a check that can fail
+No consequential claim without a receipt. If a claim affects the diagnosis, shipped behavior, dependency choice, destructive action, or user-facing conclusion, attach an external check that could return “no”: a test, diff, log, runtime result, filesystem fact, git history, registry response, or source actually read.
 
-"I reviewed it and it looks right" is not a check — a model that would skip verification will also pass its own introspection. If a claim affects a diagnosis, shipped behavior, dependency choice, destructive action, or user-facing conclusion, it must clear a gate that an external artifact satisfies: a test that runs, a file proven to exist in the expected shape, git history that confirms it, logs actually read, or a source/entity actually resolved.
+Build `assets/proof_table.md` before reporting. Unsupported claims stay visible as `unverified`; disproved claims stay visible as `refuted`.
 
-Build a **proof table** before reporting (`assets/proof_table.md`). If a consequential step has no failable check, mark it **unverified** so the gap stays visible downstream.
+> Where intuition would carry the decision, install an instrument.
 
-**The rule for every gap: where you would use intuition, use an instrument.**
+## Run the loop
 
-## The loop
+1. **Contract.** Define success, the keep-sacred surface, forbidden outcomes, and the check that will decide whether the work passed.
+2. **Diagnose.** Reproduce first. Read logs, runtime state, disk, and focused history before theorizing. Prove a mechanism; do not confuse recency or correlation with cause.
+3. **Slice.** Implement the smallest coherent change. Put the meter before the engine: baseline, guardrail, audit event, negative case, or dry run before risky behavior.
+4. **Verify.** Run the decisive check on representative real or fixture data. Record the receipt where review can find it. Resolve named packages, models, endpoints, versions, and flags before depending on them.
+5. **Critique.** Remove duplicate work, speculative scaffolding, and unsupported scope. Name a surviving caveat. Update the proof table.
+6. **Retain selectively.** Only when the task produced a verified, non-obvious, reusable lesson, load `references/learning.md`. Otherwise stop; do not manufacture a lesson.
 
-1. **Diagnose before you build.** Trace symptoms to one root cause where possible. Write a keep-sacred list (what must survive) and a what-rotted list (dead code, named file-by-file with a verified reason). Check every "exists now" claim against disk/git/runtime output, never memory.
-2. **Ship the smallest coherent slice.** Each slice should compile, pass its relevant checks, and stand alone. Land tests/checks with the feature. Prove it on representative real or fixture data and record the receipt where review can find it: test output, CI artifact, PR body, commit message, checked-in fixture, golden file, or another durable artifact.
-3. **Verify against ground truth.** Repo, tests, logs, runtime output, package registries, and docs beat memory. Confirm named external entities — model IDs, package versions, endpoints, CLI flags — before depending on them. If one does not resolve, stop unless an explicit fallback policy already exists; show the disproof and never silently substitute the nearest plausible match.
-4. **Mine self-skeptically before delivery.** Run an adversarial pass over your own output. Kill duplicates, speculative scaffolding, and proposals that require capabilities you do not have. For external factual claims, research findings, or non-obvious recommendations, require at least two independent sources and state the count. For repo-local claims, prefer the authoritative artifact: code, tests, logs, git, filesystem, registry, or runtime output. Name at least one surviving weakness or caveat.
+If a change invalidates an earlier check, rerun it. The loop moves backward as well as forward.
 
-If a fix invalidates an earlier check, re-run that check. The loop goes forward and backward.
+## Load the smallest relevant play set
 
-## Pick the play for the task
+Load one primary execution play. Add a second only when it contributes a distinct gate, such as mutating async automation requiring both automation and concurrency checks.
 
-Read the spine above on every run. Then load the **one** play matching the task — only that file enters context.
-
-| If the task is… | Load | Decisive move |
+| Task | Play | Decisive gate |
 |---|---|---|
-| Debugging a failure, especially with an "obvious" recent cause | `references/debugging.md` | Prove the mechanism; do not scapegoat the newest change |
-| A refactor whose output/behavior must be preserved | `references/refactor.md` | Capture a golden baseline first, then subtract |
-| Extraction / parsing / scraping into structured output | `references/extraction.md` | Typed honest-zero + explicit abstain + strict validator |
-| Automation that mutates real state | `references/automation.md` | Shadow-first, reversible, exempt human content |
-| Research / synthesis / proposing what to build | `references/research.md` | Verify entities; use independent sources where appropriate; kill weak ideas |
-| Concurrency / shared-state bug, or code that will run under threads/async | `references/concurrency.md` | Reproduce under contention; assert an invariant |
+| Ambiguous failure or plausible red herring | `references/debugging.md` | Reproduce and prove the mechanism |
+| Refactor with behavior/output to preserve | `references/refactor.md` | Contract plus golden comparison |
+| Extraction, parsing, or structured output | `references/extraction.md` | Honest-zero, abstain, strict validation |
+| Automation that mutates real state | `references/automation.md` | Dry run, exclusions, rollback |
+| Research or build proposal | `references/research.md` | Resolve entities, test claims, kill weak ideas |
+| Threads, async, workers, or shared state | `references/concurrency.md` | Contention harness plus invariant |
 
-## Always-on principles
+After verified work, `references/learning.md` governs candidate skill creation, updates, promotion, deprecation, and archival.
 
-- **Reach for the eraser first.** The best change is often less. Delete dead machinery in the same cutover commit when it is proven safe by importer/call-site checks, not by "looks unused." State the net line delta; a net-negative diff is often a success signal.
-- **Encode invariants in code, not prose.** Classify each config value: POLICY (a threshold, limit, or rule a human owns) vs PLUMBING (a URL, buffer, path, or adapter detail). POLICY never gets `?? default`; validate it and throw a multi-line WHAT / WHY / HOW error. Emit a named event when a limit is hit; never silent-truncate.
-- **Make the empty result first-class.** Model outcomes as typed statuses with a named honest-zero and a named invalid state. Never collapse `empty`, `skipped`, `invalid`, and `success` into one boolean. A skip is not a pass.
-- **Gate destructive actions.** Any deletion, overwrite, migration, or external mutation goes shadow-first and reversible, and exempts human-authored content by default. When the task is mutating automation, load `references/automation.md` for the full gate checklist.
-- **Work economically.** Patch rather than rewrite. Batch mechanically related low-risk edits, but verify at each semantic boundary. Cut narrated preamble/postamble. Economy means avoiding wasted motion, not rationing rigor.
+## Always-on invariants
+
+- **Subtract first.** Patch rather than rewrite. Prove dead code has no live callers before deleting it.
+- **Policy is explicit.** Human-owned thresholds and limits do not get silent defaults; validate them and fail with WHAT / WHY / HOW.
+- **Empty is typed.** Keep `success`, `empty`, `skipped`, `invalid`, and `abstain` distinct. A skip is not a pass.
+- **Mutation is gated.** Prove target set, exclusion set, dry-run output, rollback path, and post-run result. Protect human-authored content by default.
+- **Verification follows semantic boundaries.** Batch mechanical edits; verify whenever behavior or risk changes.
 
 ## Done means
 
-- The smallest coherent slice is implemented.
-- Relevant checks ran and their receipts exist.
-- The proof table supports every consequential claim or marks it unverified/refuted.
-- Known caveats are named.
-- No broader completion is implied than the evidence supports.
+- The smallest coherent slice is complete.
+- Relevant checks ran and receipts exist.
+- Every consequential claim is `verified`, `unverified`, or `refuted` in the proof table.
+- Caveats and coverage limits are explicit.
+- No broader success is implied than the evidence supports.
 
-## When NOT to use this
+## Scope and precedence
 
-If a task has one obvious correct approach and fits in a single pass, do it directly and skip the loop — staging trivia buries the answer under ceremony. When a task is genuinely beyond the available instruments, say which claim cannot be verified rather than producing plausible-sounding certainty.
+This skill governs engineering method, not platform policy. Higher-priority safety, consent, tool, filesystem, and environment instructions win. Use the strongest available instrument and state when the preferred one is unavailable.
 
 ## Provenance
 
-Distilled from close observation of a capable coding agent over an extended run, then re-grounded by falsifiable tests: debugging, refactor, and extraction under real git/logs/disk; automation core behavior (shadow-first / exempt-human / reversible) under real filesystem state; research entity-resolution under real package-registry queries; and concurrency under real threads with an invariant stress harness. See each play's worked receipt.
-
-What remains untested here is lower-stakes residue: the automation play's POLICY-throw and telemetry-on-limit claims, plus the research play's independent-source and adversarial-self-pass claims. Treat those as map, not proof, until you ground them in your own work.
+The execution plays have compact reproduced examples in `references/receipts.md`; those receipts establish only the tested claims under the tested scenarios. The learning lifecycle adapts the strongest ideas from continuous-learning skill systems—selective extraction, search-before-create, precise retrieval triggers, scoped storage, versioning, and deprecation—while adding Fable gates: staged candidates, evidence provenance, negative cases, and clean with/without-skill evaluation before promotion. Treat that lifecycle as a candidate method until it is benchmarked in the target environment.
