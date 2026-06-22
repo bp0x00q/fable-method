@@ -1,6 +1,6 @@
 # Fable Method
 
-Fable is an evidence-first engineering method:
+"Fable-Method" is an evidence-first engineering skill for Claude Code and Codex. There are many fable skills, but this one is mine. The behavioral change from Opus 4.8 to Mythos/Fable was subtle but *dramatic*. It is ridiculous to suggest this skill will achieve the same level of excellence, but it does produce a measurable improvement and you are encouraged to tell the LLM to actually prove that by evaluating through experiment. This skill was produced by a swarm of Opus 4.8 subagents on max effort mining my git history for the entire duration that Fable was first avaiable:
 
 ```text
 contract → diagnose → slice → verify → critique → decide

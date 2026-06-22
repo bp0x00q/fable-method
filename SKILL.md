@@ -1,5 +1,7 @@
 ---
 name: fable-method
+metadata:
+  self_test: "python3 scripts/fable_workspace.py self-test"
 description: >-
   Use for consequential coding or focused multi-step builds where a
   plausible-but-wrong result is costly: ambiguous debugging, preserving
